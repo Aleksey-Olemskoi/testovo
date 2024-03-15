@@ -10,27 +10,27 @@ import (
 func main() {
 
 	fmt.Println("введённые данные по элиментам")
-	scanner := bufio.NewScanner(os.Stdin) //создать строку
+	scanner := bufio.NewScanner(os.Stdin) //создние строку
 	scanner.Scan()
 	line := scanner.Text()
 
 	var dann [10]string
 
-	pods := strings.Split(line, " ") //запустите цикл for для размищения подстрок в массив
+	pods := strings.Split(line, " ")
 
 	var i int
 
-	for _, substring := range pods {
+	for _, substring := range pods { // цапуск цикла для размищения подстрок по элиментам массива
 
 		dann[i] = substring
 		i++
 	}
 
 	if dann[3] != "" || dann[2] == "" || dann[1] == "" || dann[0] == "" {
-		panic("Некорректный формат ввода, ожидалось: 'аргумент1 оператор аргумент2'") //  отикаем ввод оргументов количеством >2
+		panic("Некорректный формат ввода, ожидалось: 'аргумент1 оператор аргумент2'") //  оприделение ввода оргументов количеством >2
 	}
 
-	operand1, operator, operand2 := dann[0], dann[1], dann[2] // Определяем элименты массива в переменные для удобства
+	operand1, operator, operand2 := dann[0], dann[1], dann[2] // Определение элименты массива в переменные для удобства
 
 	//сравнение переменных на моответствие эдентичности системы счисления и на точтобы они были <=10 и >0
 
@@ -173,57 +173,62 @@ func main() {
 
 	if numr1 != 0 && numr2 != 0 {
 
-		if numr1 == 1 && numr2 == 1 { // проводим расчет арабских цифр
-			switch operator {
-			case "+":
-				sum = znak1 + znak2
-				fmt.Println(sum)
-			case "-":
-				sum = znak1 - znak2
-				fmt.Println(sum)
-			case "*":
-				sum = znak1 * znak2
-				fmt.Println(sum)
-			case "/":
-				sum = znak1 / znak2
-				fmt.Println(sum)
-			default:
-				panic(" нелопустимый знак операции")
+		if (numr1 == 1 && numr2 == 1) || (numr1 == 2 && numr2 == 2) { // проверка на соответствие системы счислениея операндов
+
+			if numr1 == 1 && numr2 == 1 { //  расчет арабских цифр
+				switch operator {
+				case "+":
+					sum = znak1 + znak2
+					fmt.Println(sum)
+				case "-":
+					sum = znak1 - znak2
+					fmt.Println(sum)
+				case "*":
+					sum = znak1 * znak2
+					fmt.Println(sum)
+				case "/":
+					sum = znak1 / znak2
+					fmt.Println(sum)
+				default:
+					panic(" нелопустимый знак операции")
+				}
+
+				if numr1 == 2 && numr2 == 2 { //  расчет римских цифр
+
+					switch operator {
+					case "+":
+						sum = znak1 + znak2
+
+					case "-":
+						sum = znak1 - znak2
+
+					case "*":
+						sum = znak1 * znak2
+
+					case "/":
+						sum = znak1 / znak2
+
+					default:
+						panic(" нелопустимый знак операции")
+					}
+
+					naborRim := [100]string{"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"}
+
+					if sum > 0 {
+						fmt.Println(naborRim[sum-1])
+
+					} else {
+						panic("недопустимая операция")
+					}
+
+				}
+
 			}
+		} else {
+			panic("не соответствие cистемы счисления 1-го операнта со 2-ым")
 		}
-
-		if numr1 == 2 && numr2 == 2 { // проводим расчет римских цифр
-
-			switch operator {
-			case "+":
-				sum = znak1 + znak2
-
-			case "-":
-				sum = znak1 - znak2
-
-			case "*":
-				sum = znak1 * znak2
-
-			case "/":
-				sum = znak1 / znak2
-
-			default:
-				panic(" нелопустимый знак операции")
-			}
-
-			naborRim := [100]string{"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"}
-
-			if sum > 0 {
-				fmt.Println(naborRim[sum-1])
-
-			} else {
-				panic("недопустимая операция")
-			}
-
-		}
-
 	} else {
 		panic("недопустимое цифры")
 	}
-
 }
+
